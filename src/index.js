@@ -3,18 +3,18 @@ import ReactDOM from "react-dom";
 
 import "./styles.css";
 
-const useClick = (onClick) => {
+const useHover = (onHover) => {
   const element = useRef();
-  if (typeof onClick !== "function") {
+  if (typeof onHover !== "function") {
     return;
   }
   useEffect(() => {
     if (element.current) {
-      element.current.addEventListener("click", onClick);
+      element.current.addEventListener("mouseenter", onHover);
     }
     return () => {
       if (element.current) {
-        element.removeEventListener("click", onClick);
+        element.current.removeEventListener("mouseenter", onHover);
       }
     };
   }, []);
@@ -23,7 +23,7 @@ const useClick = (onClick) => {
 
 const App = () => {
   const sayHello = () => console.log("say Hello");
-  const title = useClick(sayHello);
+  const title = useHover(sayHello);
   return (
     <div className="App">
       <h1 ref={title}>Hi</h1>
